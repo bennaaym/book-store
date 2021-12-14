@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace PavolsBookStore.Models.Grid
+namespace Book_Store.Models.Grid
 {
   public static class FilterPrefix
   {

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace PavolsBookStore.Models.ExtensionMethods
+namespace Book_Store.Models.ExtensionMethods
 {
   public static class StringExtension
   {
