@@ -1,0 +1,67 @@
+﻿@model Book_Store.Models.ViewModels.AuthorListViewModel
+
+@{
+  ViewData["Title"] = " | Author Catalog";
+  // aliases to make paging, sorting, and filtering code shorter
+  Book_Store.Models.Grid.RouteDictionary current = Model.CurrentRoute;
+  Book_Store.Models.Grid.RouteDictionary routes = Model.CurrentRoute.Clone();
+}
+
+<h1>Author Catalog</h1>
+
+<table class="table table-bordered table-striped table-sm">
+  @* for the name columns, update the route dictionary with the field to sort by, and then use
+    that route dictionary and the current route to create route segments for sorting link *@
+  <thead class="thead-dark">
+    <tr>
+      <th>
+        @{ routes.SetSortAndDirection(nameof(Book_Store.Models.DomainModels.Author.FirstName), current); }
+        <a asp-controller="Author" asp-action="List" asp-all-route-data="@routes" class="text-white">First Name</a>
+      </th>
+      <th>
+        @{ routes.SetSortAndDirection(nameof(Book_Store.Models.DomainModels.Author.LastName), current); }
+        <a asp-controller="Author" asp-action="List" asp-all-route-data="@routes" class="text-white">Last Name</a>
+      </th>
+      <th>Book(s)</th>
+    </tr>
+  </thead>
+  <tbody>
+    @foreach (Book_Store.Models.DomainModels.Author author in Model.Authors)
+    {
+      <tr>
+        <td>
+          <a asp-controller="Author" asp-action="Details" asp-route-id="@author.AuthorId">@author.FirstName</a>
+        </td>
+        <td>
+          <a asp-controller="Author" asp-action="Details" asp-route-id="@author.AuthorId">@author.LastName</a>
+        </td>
+        <td>
+          @foreach (var ba in author.BookAuthors)
+          {
+            <p>
+              <a asp-controller="Book" asp-action="Details" asp-route-id="@ba.BookId">@ba.Book.Title</a>
+            </p>
+          }
+        </td>
+      </tr>
+    }
+  </tbody>
+</table>
+
+@* paging links *@
+@{
+  @* Reset the route dictionary to the current route values. This is necessary
+    to clear the changes made while creating the sorting links above. Clone so
+    don't overwrite current route segment values. *@
+  routes = Model.CurrentRoute.Clone();
+
+  @* update route dictionary with page number in 'i' and then use
+    updated route dictionary to create route segments for paging link.*@
+  for (int i = 1; i <= Model.TotalPages; i++)
+  {
+    routes.PageNumber = i;
+    <a asp-controller="Author" asp-action="List" asp-all-route-data="@routes"
+       class="btn btn-outline-primary @Book_Store.Models.ViewModels.Nav.Active(i, current.PageNumber)">@i</a>
+    }
+}
+
