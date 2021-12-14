@@ -2,11 +2,13 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Hosting;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Book_Store.Models.DataLayer;
 
 namespace Book_Store
 {
@@ -27,6 +29,10 @@ namespace Book_Store
             services.AddSession();
 
             services.AddControllersWithViews().AddNewtonsoftJson();
+            services.AddDbContext<BookstoreContext>(options =>
+                                options.UseSqlServer(
+                                    Configuration.GetConnectionString("BookstoreContext")
+                                ));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
