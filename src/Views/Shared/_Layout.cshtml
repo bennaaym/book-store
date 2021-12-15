@@ -1,40 +1,75 @@
-﻿<!DOCTYPE html>
+﻿@{ 
+  // get cart from session
+  var cart = new Book_Store.Models.DomainModels.Cart(Context);
+
+  // use current controller or area to determine if tab is active
+  var current = ViewContext.RouteData.Values["area"]?.ToString() ??
+    ViewContext.RouteData.Values["controller"]?.ToString();
+}
+
+<!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - Book_Store</title>
-    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="~/css/site.css" />
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>@ViewData["Title"] - Pavols Book Store</title>
+  <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+  <link rel="stylesheet"
+        href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"
+        crossorigin="anonymous">
+  <link rel="stylesheet" href="~/css/site.css" />
 </head>
 <body>
-    <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-            <div class="container">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Book_Store</a>
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
-                    <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </nav>
-    </header>
-    <div class="container">
-        <main role="main" class="pb-3">
-            @RenderBody()
-        </main>
-    </div>
+  <div class="container">
+    <nav class="navbar navbar-expand-md navbar-dark bg-dark">
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#menu" aria-controls="menu" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="menu">
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item @Book_Store.Models.ViewModels.Nav.Active("Home", current)">
+            <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Index">
+              <span class="fas fa-home"></span>&nbsp;Home
+            </a>
+          </li>
+          <li class="nav-item @Book_Store.Models.ViewModels.Nav.Active("Book", current)">
+            <a class="nav-link" asp-area="" asp-controller="Book" asp-action="List">
+              <span class="fas fa-book-open"></span>&nbsp;Books
+            </a>
+          </li>
+          <li class="nav-item @Book_Store.Models.ViewModels.Nav.Active("Author", current)">
+            <a class="nav-link" asp-area="" asp-controller="Author" asp-action="List">
+              <span class="fas fa-feather-alt"></span>&nbsp;Authors
+            </a>
+          </li>
+        </ul>
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item @Book_Store.Models.ViewModels.Nav.Active("Cart", current)">
+            <a class="nav-link" asp-area="" asp-controller="Cart" asp-action="Index">
+              <span class="fas fa-shopping-cart"></span>&nbsp;Cart
+              <span class="badge badge-light">@cart.Count</span>
+            </a>
+          </li>
+          <li class="nav-item @Book_Store.Models.ViewModels.Nav.Active("Admin", current)">
+            <a class="nav-link" asp-area="Admin" asp-controller="Book" asp-action="Index">
+              <span class="fas fa-cog"></span>&nbsp;Admin
+            </a>
+          </li>
+        </ul>
+      </div>
+    </nav>
 
+    <main>
+      @if (TempData.Keys.Contains("message"))
+      {
+        <h4 class="bg-info text-center text-white p-2">@TempData["message"]</h4>
+      }
+      @RenderBody()
+    </main>
+  </div>
     <footer class="border-top footer text-muted">
         <div class="container">
-            &copy; 2021 - Book_Store - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+            &copy; 2020 - Pavols Book Store
         </div>
     </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>

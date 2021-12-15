@@ -45,6 +45,8 @@ namespace Book_Store
 
             app.UseRouting();
 
+            app.UseAuthentication();
+
             app.UseAuthorization();
 
             app.UseSession();
