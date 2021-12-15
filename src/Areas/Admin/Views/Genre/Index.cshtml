@@ -1,0 +1,32 @@
+﻿@model IEnumerable<Book_Store.Models.DomainModels.Genre>
+
+@{ 
+  ViewData["Title"] = " | Manage Genres";
+}
+
+<h1 class="mb-2">Manage Genres</h1>
+
+<h5 class="mt-2"><a asp-controller="Genre" asp-action="Add" asp-area="Admin">Add Genre</a></h5>
+
+<table class="table table-bordered table-striped table-sm">
+  <thead>
+    <tr><th>GenreId</th><th>Name</th><th></th></tr>
+  </thead>
+  <tbody>
+    @foreach(Book_Store.Models.DomainModels.Genre genre in Model)
+    {
+      <tr>
+        <td>@genre.GenreId</td>
+        <td>@genre.Name</td>
+        <td>
+          <a asp-controller="Genre" asp-action="ViewBooks" asp-area="Admin" asp-route-id="@genre.GenreId"
+             class="btn btn-primary">View Books</a>
+          <a asp-controller="Genre" asp-action="Edit" asp-area="Admin" asp-route-id="@genre.GenreId"
+             class="btn btn-primary">Edit</a>
+          <a asp-controller="Genre" asp-action="Delete" asp-area="Admin" asp-route-id="@genre.GenreId"
+             class="btn btn-primary">Delete</a>
+        </td>
+      </tr>
+    }
+  </tbody>
+</table>
