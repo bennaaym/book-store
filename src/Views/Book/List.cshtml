@@ -1,4 +1,5 @@
-﻿@model Book_Store.Models.ViewModels.BookListViewModel
+﻿@inject Microsoft.AspNetCore.Mvc.Localization.IViewLocalizer localizer
+@model Book_Store.Models.ViewModels.BookListViewModel
 
 @{
   ViewData["Title"] = " | Book Catalog";
@@ -7,43 +8,43 @@
   Book_Store.Models.Grid.RouteDictionary routes = Model.CurrentRoute.Clone();
 }
 
-<h1>Book Catalog</h1>
+<h1>@localizer["Book Catalog"]</h1>
 
 <div class="row">
   <div class="col-9">
     @* filter form *@
     <form asp-controller="Book" asp-action="Filter" method="post" class="form-inline">
-      <label>Author:</label>
+      <label>@localizer["Author"]:</label>
       <select name="filter" class="form-control m-2"
               asp-items="@(new SelectList(
                 Model.Authors, "AuthorId", "FullName", current.AuthorFilter))">
         <option value="@Book_Store.Models.DTOs.BookGridDTO.DefaultFilter">All</option>
       </select>
 
-      <label>Genre:</label>
+      <label>@localizer["Genre"]:</label>
       <select name="filter" class="form-control m-2"
               asp-items="@(new SelectList(
                 Model.Genres, "GenreId", "Name", current.GenreFilter))">
         <option value="@Book_Store.Models.DTOs.BookGridDTO.DefaultFilter">All</option>
       </select>
 
-      <label>Price:</label>
+      <label>@localizer["Price"]:</label>
       <select name="filter" class="form-control m-2"
               asp-items="@(new SelectList(
                 Model.Prices, "Key", "Value", current.PriceFilter))">
         <option value="@Book_Store.Models.DTOs.BookGridDTO.DefaultFilter">All</option>
       </select>
 
-      <button type="submit" class="btn btn-primary mr-2">Filter</button>
-      <button type="submit" class="btn btn-primary" name="clear" value="true">Clear</button>
+      <button type="submit" class="btn btn-primary mr-2">@localizer["Filter"]</button>
+      <button type="submit" class="btn btn-primary" name="clear" value="true">@localizer["Clear"]</button>
     </form>
   </div>
   <div class="col">
     @* page-size form *@
     <form asp-controller="Book" asp-action="PageSize" method="post" class="form-inline">
-      <label>Page Size:</label>
+      <label>@localizer["Page Size"]:</label>
       <select name="pagesize" class="form-control m-2" asp-items="@(new SelectList(Model.PageSizes, current.PageSize))">     </select>
-      <button type="submit" class="btn btn-primary mr-2">Save</button>
+      <button type="submit" class="btn btn-primary mr-2">@localizer["Save"]</button>
     </form>
   </div>
 </div>
@@ -57,16 +58,16 @@
       <tr>
         <th>
           @{ routes.SetSortAndDirection(nameof(Book_Store.Models.DomainModels.Book.Title), current); }
-          <a asp-controller="Book" asp-action="List" asp-all-route-data="@routes" class="text-white">Title</a>
+          <a asp-controller="Book" asp-action="List" asp-all-route-data="@routes" class="text-white">@localizer["Title"]</a>
         </th>
-        <th>Author(s)</th>
+        <th>@localizer["Authors"]</th>
         <th>
           @{ routes.SetSortAndDirection(nameof(Book_Store.Models.DomainModels.Genre), current); }
-          <a asp-controller="Book" asp-action="List" asp-all-route-data="@routes" class="text-white">Genre</a>
+          <a asp-controller="Book" asp-action="List" asp-all-route-data="@routes" class="text-white">@localizer["Genre"]</a>
         </th>
         <th>
           @{ routes.SetSortAndDirection(nameof(Book_Store.Models.DomainModels.Book.Price), current); }
-          <a asp-controller="Book" asp-action="List" asp-all-route-data="@routes" class="text-white">Price</a>
+          <a asp-controller="Book" asp-action="List" asp-all-route-data="@routes" class="text-white">@localizer["Price"]</a>
         </th>
         <th></th>
       </tr>
@@ -89,7 +90,7 @@
           <td>@book.Genre.Name</td>
           <td>@book.Price.ToString("c")</td>
           <td>
-            <button type="submit" name="id" value="@book.BookId" class="btn btn-primary">Add to Cart</button>
+            <button type="submit" name="id" value="@book.BookId" class="btn btn-primary">@localizer["Add to Cart"]</button>
           </td>
         </tr>
       }

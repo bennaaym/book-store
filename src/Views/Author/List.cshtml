@@ -1,4 +1,5 @@
-﻿@model Book_Store.Models.ViewModels.AuthorListViewModel
+﻿@inject Microsoft.AspNetCore.Mvc.Localization.IViewLocalizer localizer
+@model Book_Store.Models.ViewModels.AuthorListViewModel
 
 @{
   ViewData["Title"] = " | Author Catalog";
@@ -7,7 +8,7 @@
   Book_Store.Models.Grid.RouteDictionary routes = Model.CurrentRoute.Clone();
 }
 
-<h1>Author Catalog</h1>
+<h1>@localizer["Author Catalog"]</h1>
 
 <table class="table table-bordered table-striped table-sm">
   @* for the name columns, update the route dictionary with the field to sort by, and then use
@@ -16,13 +17,13 @@
     <tr>
       <th>
         @{ routes.SetSortAndDirection(nameof(Book_Store.Models.DomainModels.Author.FirstName), current); }
-        <a asp-controller="Author" asp-action="List" asp-all-route-data="@routes" class="text-white">First Name</a>
+        <a asp-controller="Author" asp-action="List" asp-all-route-data="@routes" class="text-white">@localizer["First Name"]</a>
       </th>
       <th>
         @{ routes.SetSortAndDirection(nameof(Book_Store.Models.DomainModels.Author.LastName), current); }
-        <a asp-controller="Author" asp-action="List" asp-all-route-data="@routes" class="text-white">Last Name</a>
+        <a asp-controller="Author" asp-action="List" asp-all-route-data="@routes" class="text-white">@localizer["Last Name"]</a>
       </th>
-      <th>Book(s)</th>
+      <th>@localizer["Books"]</th>
     </tr>
   </thead>
   <tbody>

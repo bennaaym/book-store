@@ -12,6 +12,10 @@ using System.Linq;
 using System.Threading.Tasks;
 using Book_Store.Models.DataLayer;
 using Book_Store.Models.DomainModels;
+using Microsoft.AspNetCore.Mvc.Razor;
+using System.Globalization;
+using Microsoft.AspNetCore.Localization;
+using Microsoft.Extensions.Options;
 
 namespace Book_Store
 {
@@ -30,13 +34,27 @@ namespace Book_Store
             services.AddRouting(options => options.LowercaseUrls = true);
             services.AddMemoryCache();
             services.AddSession();
+            services.AddLocalization(options => { options.ResourcesPath = "Resources"; });
+            services.AddMvc().AddViewLocalization(LanguageViewLocationExpanderFormat.Suffix).AddDataAnnotationsLocalization();
+            services.Configure<RequestLocalizationOptions>(
+              options =>
+              {
+                  var supportedCultures = new List<CultureInfo>
+                  {
+                        new CultureInfo("en"),
+                        new CultureInfo("tr")
+                  };
+                  options.DefaultRequestCulture = new RequestCulture("en");
+                  options.SupportedCultures = supportedCultures;
+                  options.SupportedUICultures = supportedCultures;
+              });
 
             services.AddControllersWithViews().AddNewtonsoftJson();
             services.AddDbContext<BookstoreContext>(options =>
                                 options.UseSqlServer(
                                     Configuration.GetConnectionString("BookstoreContext")
                                 ));
-
+                
             services.AddIdentity<User, IdentityRole>(options =>
             {
                 options.Password.RequiredLength = 3;
@@ -61,6 +79,11 @@ namespace Book_Store
             app.UseAuthorization();
 
             app.UseSession();
+
+
+            app.UseRequestLocalization(app.ApplicationServices.GetRequiredService<IOptions<RequestLocalizationOptions>>().Value);
+
+
 
             app.UseEndpoints(endpoints =>
             {
