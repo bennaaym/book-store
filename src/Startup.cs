@@ -39,9 +39,11 @@ namespace Book_Store
 
             services.AddIdentity<User, IdentityRole>(options =>
             {
-                options.Password.RequiredLength = 6;
+                options.Password.RequiredLength = 3;
                 options.Password.RequireNonAlphanumeric = false;
                 options.Password.RequireDigit = false;
+                options.Password.RequireLowercase = false;
+                options.Password.RequireUppercase = false;
             }).AddEntityFrameworkStores<BookstoreContext>().AddDefaultTokenProviders();
         }
 

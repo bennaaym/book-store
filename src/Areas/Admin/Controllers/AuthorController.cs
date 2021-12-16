@@ -12,6 +12,7 @@ using Book_Store.Models.DomainModels;
 namespace Book_Store.Areas.Admin.Controllers
 {
 
+  [Authorize(Roles ="Admin")]
   [Area("Admin")]
   public class AuthorController : Controller
   {

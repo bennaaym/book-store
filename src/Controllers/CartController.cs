@@ -14,6 +14,7 @@ using Book_Store.Models.ViewModels;
 namespace Book_Store.Controllers
 {
 
+  [Authorize]
   public class CartController : Controller
   {
     private Repository<Book> data { get; set; }
