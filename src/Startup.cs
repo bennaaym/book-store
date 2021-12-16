@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Session;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Hosting;
 using System;
@@ -10,6 +11,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Book_Store.Models.DataLayer;
+using Book_Store.Models.DomainModels;
 
 namespace Book_Store
 {
@@ -34,6 +36,13 @@ namespace Book_Store
                                 options.UseSqlServer(
                                     Configuration.GetConnectionString("BookstoreContext")
                                 ));
+
+            services.AddIdentity<User, IdentityRole>(options =>
+            {
+                options.Password.RequiredLength = 6;
+                options.Password.RequireNonAlphanumeric = false;
+                options.Password.RequireDigit = false;
+            }).AddEntityFrameworkStores<BookstoreContext>().AddDefaultTokenProviders();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -76,6 +85,9 @@ namespace Book_Store
                     pattern: "{controller=Home}/{action=Index}/{id?}/{slug?}"
                 );
             });
+
+            BookstoreContext.CreateAdminUser(app.ApplicationServices).Wait();
+
         }
     }
 }
