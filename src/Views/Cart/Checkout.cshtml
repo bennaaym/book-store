@@ -1,13 +1,15 @@
-﻿@{ 
+﻿@inject Microsoft.AspNetCore.Mvc.Localization.IViewLocalizer localizer
+
+@{ 
   ViewData["Title"] = "Checkout";
 }
 
-<h1>Checkout</h1>
+<h1>@localizer["Checkout"]</h1>
 <ul class="list-group">
   <li class="list-group-item">
-    <h4>This is a mock up checkout page</h4>
+    <h4>@localizer["Message1"]</h4>
   </li>
   <li class="list-group-item">
-    Here would be some payment service
+    @localizer["Message2"]
   </li>
 </ul>

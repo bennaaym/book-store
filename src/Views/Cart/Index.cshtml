@@ -1,23 +1,24 @@
 ﻿@model Book_Store.Models.ViewModels.CartViewModel
+@inject Microsoft.AspNetCore.Mvc.Localization.IViewLocalizer localizer
 
 @{ 
   ViewData["Title"] = " | Cart";
 }
 
-<h1>Your cart</h1>
+<h1>@localizer["Your Cart"]</h1>
 <form asp-controller="Cart" asp-action="Clear" method="post">
   <ul>
     <li class="list-group-item">
       <div class="row">
         <div class="col">
-          Total: @Model.Subtotal.ToString("c")
+          @localizer["Total"]: @Model.Subtotal.ToString("c")
         </div>
         <div class="col">
           <div class="float-right">
-            <a asp-controller="Cart" asp-action="Checkout" class="btn btn-primary">Checkout</a>
-            <button type="submit" class="btn btn-primary">Clear Cart</button>
+            <a asp-controller="Cart" asp-action="Checkout" class="btn btn-primary">@localizer["Checkout"]</a>
+            <button type="submit" class="btn btn-primary">@localizer["Clear"]</button>
             <a asp-controller="Book" asp-action="List" asp-all-route-data="@Model.BookGridRoute">
-              Back to Shopping
+              @localizer["Back to Shopping"]
             </a>
           </div>
         </div>
@@ -29,11 +30,11 @@
   <table class="table">
     <thead class="thead-dark">
       <tr>
-        <th>Title</th>
-        <th>Author(s)</th>
-        <th>Price</th>
-        <th>Quantity</th>
-        <th>Subtotal</th>
+        <th>@localizer["Title"]</th>
+        <th>@localizer["Authors"]</th>
+        <th>@localizer["Price"]</th>
+        <th>@localizer["Quantity"]</th>
+        <th>@localizer["Subtotal"]</th>
         <th></th>
       </tr>
     </thead>
@@ -61,8 +62,8 @@
           <td>@item.Subtotal.ToString("c")</td>
           <td>
             <div class="float-right">
-              <a asp-controller="Cart" asp-action="Edit" asp-route-id="@item.Book.BookId" class="btn btn-primary">Edit</a>
-              <button type="submit" name="id" value="@item.Book.BookId" class="btn btn-primary">Remove</button>
+              <a asp-controller="Cart" asp-action="Edit" asp-route-id="@item.Book.BookId" class="btn btn-primary">@localizer["Edit"]</a>
+              <button type="submit" name="id" value="@item.Book.BookId" class="btn btn-primary">@localizer["Remove"]</button>
             </div>
           </td>
         </tr>
