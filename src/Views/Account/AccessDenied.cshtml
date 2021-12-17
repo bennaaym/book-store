@@ -1,5 +1,7 @@
-﻿@{ 
+﻿@inject Microsoft.AspNetCore.Mvc.Localization.IViewLocalizer localizer
+
+@{ 
   ViewBag.Title = "Access Denied";
 }
 
-<h2>Access Denied</h2>
+<h2>@localizer["Access Denied"]</h2>

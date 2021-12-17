@@ -1,14 +1,15 @@
-﻿@model Book_Store.Models.ViewModels.RegisterViewModel
+﻿@inject Microsoft.AspNetCore.Mvc.Localization.IViewLocalizer localizer
+@model Book_Store.Models.ViewModels.RegisterViewModel
 @{
   ViewBag.Title = "Register";
 }
 
-<h2>Register</h2>
+<h2>@localizer["Register"]</h2>
 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
 <form method="post" asp-controller="Account" asp-action="Register">
   <div class="form-group row">
-    <div class="col-sm-2"><label>User Name:</label></div>
+    <div class="col-sm-2"><label>@localizer["Username"]:</label></div>
     <div class="col-sm-4">
       <input type="text" asp-for="Username" class="form-control" />
     </div>
@@ -17,7 +18,7 @@
     </div>
   </div>
   <div class="form-group row">
-    <div class="col-sm-2"><label>Password:</label></div>
+    <div class="col-sm-2"><label>@localizer["Password"]:</label></div>
     <div class="col-sm-4">
       <input type="password" asp-for="Password" class="form-control" />
     </div>
@@ -26,7 +27,7 @@
     </div>
   </div>
   <div class="form-group row">
-    <div class="col-sm-2"><label>Confirm Password:</label></div>
+    <div class="col-sm-2"><label>@localizer["Confirm Password"]:</label></div>
     <div class="col-sm-4">
       <input type="password" asp-for="ConfirmPassword" class="form-control" />
     </div>
@@ -36,12 +37,12 @@
   </div>
   <div class="row">
     <div class="offset-2 col-sm-4">
-      <button type="submit" class="btn btn-primary">Register</button>
+      <button type="submit" class="btn btn-primary">@localizer["Register"]</button>
     </div>
   </div>
   <div class="row">
     <div class="offset-2 col-sm-4">
-      Already Registered? <a asp-controller="Account" asp-action="LogIn">Log In</a>
+      @localizer["Already Registered"]? <a asp-controller="Account" asp-action="LogIn">@localizer["Login"]</a>
     </div>
   </div>
 </form>
