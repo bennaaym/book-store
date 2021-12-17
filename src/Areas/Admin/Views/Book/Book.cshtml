@@ -1,4 +1,5 @@
-﻿@model Book_Store.Areas.Admin.Models.BookViewModel
+﻿@inject Microsoft.AspNetCore.Mvc.Localization.IViewLocalizer localizer
+@model Book_Store.Areas.Admin.Models.BookViewModel
 
 @{ 
   // this view is used for add, edit, and delete. 
@@ -8,14 +9,14 @@
   ViewData["Title"] = $" | {action.ToUpper()} Book";
 }
 
-<h1>@action.ToUpper() Book</h1>
+<h1>@localizer["Add Book"]</h1>
 
 <form asp-controller="Book" asp-action="@action" asp-area="Admin" method="post">
   <input type="hidden" asp-for="Book.BookId" />
 
   <div class="form-group row">
     <div class="col-sm-2">
-      <label>Title:</label>
+      <label>@localizer["Title"]:</label>
     </div>
     @* if deleting, display title in a label and put value in hidden field
       for delete message. Otherwise, provide a text box*@
@@ -42,7 +43,7 @@
   {
     <div class="form-group row">
       <div class="col-sm-2">
-        <label>Price:</label>
+        <label>@localizer["Price"]:</label>
       </div>
       <div class="col-sm-4">
         <input type="text" asp-for="Book.Price" class="form-control" />
@@ -53,7 +54,7 @@
     </div>
     <div class="form-group row">
       <div class="col-sm-2">
-        <label>Genre:</label>
+        <label>@localizer["Genre"]:</label>
       </div>
       <div class="col-sm-4">
         <select asp-for="Book.GenreId" class="form-control"
@@ -65,13 +66,13 @@
     </div>
     <div class="form-group row">
       <div class="col-sm-2">
-        <label>Authors:</label>
+        <label>@localizer["Authors"]:</label>
       </div>
       <div class="col-sm-4">
         <select asp-for="SelectedAuthors" class="form-control"
                 asp-items='@(new MultiSelectList(Model.Authors, "AuthorId","FullName", Model.SelectedAuthors))'>
         </select>
-        (Hold down CTRL or CMD key to select multiple authors)
+        @localizer["Selection Message"]
       </div>
       <div class="col-sm-6">
         <span asp-validation-for="SelectedAuthors" class="text-danger"></span>
@@ -80,7 +81,7 @@
   }
   <div class="row">
     <div class="col-sm-4 offset-sm-2">
-      <button type="submit" class="btn btn-primary">@action.ToUpper()</button>
+      <button type="submit" class="btn btn-primary">@localizer["Add"]</button>
       @* return user to main admin page after add, or to search page otherwise *@
       <a asp-controller="Book" 
          asp-action="@(Book_Store.Areas.Admin.Models.Operation.IsAdd(action) ? "Index" : "Search")" 

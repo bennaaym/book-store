@@ -12,30 +12,31 @@
   <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
   <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
 }
+@inject Microsoft.AspNetCore.Mvc.Localization.IViewLocalizer localizer
 
 <ul class="nav nav-tabs mt-2 mb-3">
   <li class="nav-item">
     <a asp-controller="Book" asp-action="Index"
        class="nav-link @Book_Store.Models.ViewModels.Nav.Active("Book",current)">
-      Manage Books
+      @localizer["Manage Books"]
     </a>
   </li>
   <li class="nav-item">
     <a asp-controller="Author" asp-action="Index"
        class="nav-link @Book_Store.Models.ViewModels.Nav.Active("Author",current)">
-      Manage Authors
+      @localizer["Manage Authors"]
     </a>
   </li>
   <li class="nav-item">
     <a asp-controller="Genre" asp-action="Index"
        class="nav-link @Book_Store.Models.ViewModels.Nav.Active("Genre",current)">
-      Manage Genres
+      @localizer["Manage Genres"]
     </a>
   </li>
   <li class="nav-item">
     <a asp-controller="User" asp-action="Index"
        class="nav-link @Book_Store.Models.ViewModels.Nav.Active("User",current)">
-      Manage Users
+      @localizer["Manage Users"]
     </a>
   </li>
 </ul>
