@@ -117,34 +117,13 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Add" xml:space="preserve">
-    <value>Add</value>
+  <data name="Book Added Message" xml:space="preserve">
+    <value>Kitaplar'a eklendi</value>
   </data>
-  <data name="Add Book" xml:space="preserve">
-    <value>Add Book</value>
+  <data name="Book Deleted Message" xml:space="preserve">
+    <value>silindi</value>
   </data>
-  <data name="Authors" xml:space="preserve">
-    <value>Authors</value>
-  </data>
-  <data name="Cancel" xml:space="preserve">
-    <value>Cancel</value>
-  </data>
-  <data name="Delete" xml:space="preserve">
-    <value>Delete</value>
-  </data>
-  <data name="Edit" xml:space="preserve">
-    <value>Edit</value>
-  </data>
-  <data name="Genre" xml:space="preserve">
-    <value>Genre</value>
-  </data>
-  <data name="Price" xml:space="preserve">
-    <value>Price</value>
-  </data>
-  <data name="Selection Message" xml:space="preserve">
-    <value>Hold down CTRL (CMD) key to select multiple authors</value>
-  </data>
-  <data name="Title" xml:space="preserve">
-    <value>Title</value>
+  <data name="Book Updated Message" xml:space="preserve">
+    <value>güncellenmişti</value>
   </data>
 </root>

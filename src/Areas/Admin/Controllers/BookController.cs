@@ -8,6 +8,7 @@ using Book_Store.Areas.Admin.Models;
 using Book_Store.Models.DataLayer;
 using Book_Store.Models.DataLayer.Repositories;
 using Book_Store.Models.DomainModels;
+using Microsoft.AspNetCore.Mvc.Localization;
 
 namespace Book_Store.Areas.Admin.Controllers
 {
@@ -16,8 +17,14 @@ namespace Book_Store.Areas.Admin.Controllers
   [Area("Admin")]
   public class BookController : Controller
   {
+    private readonly IHtmlLocalizer<BookController> _localizer;
+
     private BookStoreUnitOfWork data { get; set; }
-    public BookController(BookstoreContext ctx) => data = new BookStoreUnitOfWork(ctx);
+    public BookController(BookstoreContext ctx, IHtmlLocalizer<BookController> localizer)
+    {
+        data = new BookStoreUnitOfWork(ctx);
+        _localizer = localizer;
+    }
 
     public IActionResult Index()
     {
@@ -39,7 +46,7 @@ namespace Book_Store.Areas.Admin.Controllers
         data.Books.Insert(vm.Book);
         data.Save();
 
-        TempData["message"] = $"{vm.Book.Title} was added to Books";
+        TempData["message"] = $"{vm.Book.Title} {_localizer["Book Added Message"].Value}";
         return RedirectToAction("Index");
       }
       else
@@ -61,7 +68,7 @@ namespace Book_Store.Areas.Admin.Controllers
         data.AddNewBookAuthors(vm.Book, vm.SelectedAuthors);
         data.Books.Update(vm.Book);
         data.Save();
-        TempData["message"] = $"{vm.Book.Title} was updated";
+        TempData["message"] = $"{vm.Book.Title} {_localizer["Book Updated Message"].Value}";
         return RedirectToAction("Search");
       }
       else
@@ -81,7 +88,7 @@ namespace Book_Store.Areas.Admin.Controllers
       // only BookId in hidden field is posted from form. 
       data.Books.Delete(vm.Book); // cascading delete will get BookAuthors
       data.Save();
-      TempData["message"] = $"{vm.Book.Title} was deleted";
+      TempData["message"] = $"{vm.Book.Title} {_localizer["Book Deleted Message"].Value}";
       return RedirectToAction("Search");
     }
 
@@ -105,7 +112,7 @@ namespace Book_Store.Areas.Admin.Controllers
         if (search.IsBook)
         {
           options.Where = b => b.Title.Contains(vm.SearchTerm);
-          vm.Header = $"Search results for the book title '{vm.SearchTerm}'";
+          //vm.Header = $"Search results for the book title '{vm.SearchTerm}'";
         }
 
         if (search.IsAuthor)
@@ -129,13 +136,13 @@ namespace Book_Store.Areas.Admin.Controllers
               ba.Author.LastName.Contains(last));
           }
 
-          vm.Header = $"Search results for author '{vm.SearchTerm}'";
+          //vm.Header = $"Search results for author '{vm.SearchTerm}'";
         }
 
         if (search.IsGenre)
         {
           options.Where = b => b.GenreId.Contains(vm.SearchTerm);
-          vm.Header = $"Search results for the genreId '{vm.SearchTerm}'";
+          //vm.Header = $"Search results for the genreId '{vm.SearchTerm}'";
         }
 
         vm.Books = data.Books.List(options);

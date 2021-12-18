@@ -81,11 +81,11 @@
   }
   <div class="row">
     <div class="col-sm-4 offset-sm-2">
-      <button type="submit" class="btn btn-primary">@localizer["Add"]</button>
+      <button type="submit" class="btn btn-primary">@localizer[@action]</button>
       @* return user to main admin page after add, or to search page otherwise *@
       <a asp-controller="Book" 
          asp-action="@(Book_Store.Areas.Admin.Models.Operation.IsAdd(action) ? "Index" : "Search")" 
-         class="btn btn-primary">Cancel</a>
+         class="btn btn-primary">@localizer["Cancel"]</a>
     </div>
   </div>
 </form>

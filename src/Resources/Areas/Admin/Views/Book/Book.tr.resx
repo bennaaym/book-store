@@ -126,6 +126,15 @@
   <data name="Authors" xml:space="preserve">
     <value>Yazarlar</value>
   </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>İptal et</value>
+  </data>
+  <data name="Delete" xml:space="preserve">
+    <value>Sil</value>
+  </data>
+  <data name="Edit" xml:space="preserve">
+    <value>Düzenle</value>
+  </data>
   <data name="Genre" xml:space="preserve">
     <value>Tür</value>
   </data>
