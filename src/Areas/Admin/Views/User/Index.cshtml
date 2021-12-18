@@ -1,16 +1,17 @@
-﻿@model Book_Store.Areas.Admin.Models.UserViewModel
+﻿@inject Microsoft.AspNetCore.Mvc.Localization.IViewLocalizer localizer
+@model Book_Store.Areas.Admin.Models.UserViewModel
 @{
   ViewData["Title"] = " | Manage Users";
 }
 
-<h1 class="mb-2">Manage Users</h1>
-<h5 class="mt-2"><a asp-controller="User" asp-action="Add">Add a user</a></h5>
+<h1 class="mb-2">@localizer["Manage Users"]</h1>
+<h5 class="mt-2"><a asp-controller="User" asp-action="Add">@localizer["Add User"]</a></h5>
 
 <table class="table table-bordered table-striped table-sm">
   <thead>
     <tr>
-      <th>Username</th>
-      <th>Roles</th>
+      <th>@localizer["Username"]</th>
+      <th>@localizer["Roles"]</th>
       <th></th>
       <th></th>
       <th></th>
@@ -35,17 +36,17 @@
           </td>
           <td>
             <form method="post" asp-controller="User" asp-action="Delete" asp-route-id="@user.Id">
-              <button type="submit" class="btn btn-primary">Delete User</button>
+              <button type="submit" class="btn btn-primary">@localizer["Delete User"]</button>
             </form>
           </td>
           <td>
             <form method="post" asp-controller="User" asp-action="AddToAdmin" asp-route-id="@user.Id">
-              <button type="submit" class="btn btn-primary">Add to Admin</button>
+              <button type="submit" class="btn btn-primary">@localizer["Add to Admin"]</button>
             </form>
           </td>
           <td>
             <form method="post" asp-controller="User" asp-action="RemoveFromAdmin" asp-route-id="@user.Id">
-              <button type="submit" class="btn btn-primary">Remove From Admin</button>
+              <button type="submit" class="btn btn-primary">@localizer["Remove from Admin"]</button>
             </form>
           </td>
         </tr>
@@ -54,11 +55,11 @@
   </tbody>
 </table>
 
-<h1 class="mb-2">Manage Roles</h1>
+<h1 class="mb-2">@localizer["Manage Roles"]</h1>
 @if (Model.Roles.Count() == 0)
 {
   <form method="post" asp-controller="User" asp-action="CreateAdminRole">
-    <button type="submit" class="btn btn-primary">Create Admin Role</button>
+    <button type="submit" class="btn btn-primary">@localizer["Create Admin Role"]</button>
   </form>
 }
 else
