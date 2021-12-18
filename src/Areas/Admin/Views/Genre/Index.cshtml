@@ -1,16 +1,17 @@
 ﻿@model IEnumerable<Book_Store.Models.DomainModels.Genre>
+@inject Microsoft.AspNetCore.Mvc.Localization.IViewLocalizer localizer
 
 @{ 
   ViewData["Title"] = " | Manage Genres";
 }
 
-<h1 class="mb-2">Manage Genres</h1>
+<h1 class="mb-2">@localizer["Manage Genres"]</h1>
 
-<h5 class="mt-2"><a asp-controller="Genre" asp-action="Add" asp-area="Admin">Add Genre</a></h5>
+<h5 class="mt-2"><a asp-controller="Genre" asp-action="Add" asp-area="Admin">@localizer["Add Genre"]</a></h5>
 
 <table class="table table-bordered table-striped table-sm">
   <thead>
-    <tr><th>GenreId</th><th>Name</th><th></th></tr>
+    <tr><th>@localizer["Genre ID"]</th><th>@localizer["Name"]</th><th></th></tr>
   </thead>
   <tbody>
     @foreach(Book_Store.Models.DomainModels.Genre genre in Model)
@@ -20,11 +21,11 @@
         <td>@genre.Name</td>
         <td>
           <a asp-controller="Genre" asp-action="ViewBooks" asp-area="Admin" asp-route-id="@genre.GenreId"
-             class="btn btn-primary">View Books</a>
+             class="btn btn-primary">@localizer["Books"]</a>
           <a asp-controller="Genre" asp-action="Edit" asp-area="Admin" asp-route-id="@genre.GenreId"
-             class="btn btn-primary">Edit</a>
+             class="btn btn-primary">@localizer["Edit"]</a>
           <a asp-controller="Genre" asp-action="Delete" asp-area="Admin" asp-route-id="@genre.GenreId"
-             class="btn btn-primary">Delete</a>
+             class="btn btn-primary">@localizer["Delete"]</a>
         </td>
       </tr>
     }

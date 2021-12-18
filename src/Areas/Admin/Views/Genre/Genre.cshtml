@@ -1,4 +1,5 @@
 ﻿@model Book_Store.Models.DomainModels.Genre
+@inject Microsoft.AspNetCore.Mvc.Localization.IViewLocalizer localizer
 
 @{
   // this view is used for add, edit, and delete.
@@ -8,11 +9,11 @@
   ViewData["Title"] = $" | {action.ToUpper()} Genre";
 }
 
-<h1>@action.ToUpper() Genre</h1>
+<h1>@(localizer[action.ToUpper()]) @localizer["Genre"]</h1>
 
 <form asp-controller="Genre" asp-action="@action" asp-area="Admin" method="post">
   <div class="form-group row">
-  <div class="col-sm-2"><label>GenreId:</label></div>
+  <div class="col-sm-2"><label>@localizer["Genre ID"]:</label></div>
     @* if adding, provide a text box. Otherwise, display genreId in a label. *@
     @if (Book_Store.Areas.Admin.Models.Operation.IsAdd(action))
     {
@@ -31,7 +32,7 @@
   </div>
 
   <div class="form-group row">
-    <div class="col-sm-2"><label>Name:</label></div>
+    <div class="col-sm-2"><label>@localizer["Name"]:</label></div>
     @* if deleting, put Name value in label and hidden field for delete message.
     Otherwise, provide text box. *@
     @if (Book_Store.Areas.Admin.Models.Operation.IsDelete(action))
@@ -52,8 +53,8 @@
 
   <div class="row">
     <div class="col-sm-4 offset-sm-2">
-      <button type="submit" class="btn btn-primary">@action.ToUpper()</button>
-      <a asp-controller="Genre" asp-action="Index" class="btn btn-primary">Cancel</a>
+      <button type="submit" class="btn btn-primary">@localizer[@action]</button>
+      <a asp-controller="Genre" asp-action="Index" class="btn btn-primary">@localizer["Cancel"]</a>
     </div>
   </div>
 </form>
