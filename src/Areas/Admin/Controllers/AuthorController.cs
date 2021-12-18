@@ -92,7 +92,7 @@ namespace Book_Store.Areas.Admin.Controllers
         data.Insert(author);
         data.Save();
         validate.ClearAuthor();
-        TempData["message"] = $"{author.FullName} was added in the database";
+        TempData["message"] = $"{author.FullName} {_localizer["Author Added Message"].Value}";
         return RedirectToAction("Index");
       }
       else
@@ -110,7 +110,7 @@ namespace Book_Store.Areas.Admin.Controllers
       {
         data.Update(author);
         data.Save();
-        TempData["message"] = $"{author.FullName} was updated";
+        TempData["message"] = $"{author.FullName} {_localizer["Author Updated Message"].Value}";
         return RedirectToAction("Index");
       }
       else
@@ -128,7 +128,7 @@ namespace Book_Store.Areas.Admin.Controllers
 
       if (author.BookAuthors.Count > 0)
       {
-        TempData["message"] = $"Can't delete author {author.FullName} because the author is associated with these books.";
+        TempData["message"] = $"{author.FullName} {_localizer["Author Delete Error"].Value}";
         return GoToAuthorSearch(author);
       }
       else
@@ -144,7 +144,7 @@ namespace Book_Store.Areas.Admin.Controllers
       // only AuthorId in hidden field is posted from form. 
       data.Delete(author);
       data.Save();
-      TempData["message"] = $"{author.FullName} was deleted";
+      TempData["message"] = $"{author.FullName} {_localizer["Author Deleted Message"].Value}";
       return RedirectToAction("Index");
     }
   }

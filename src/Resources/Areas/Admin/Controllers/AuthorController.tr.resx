@@ -120,6 +120,18 @@
   <data name="Add new author" xml:space="preserve">
     <value>Yeni yazar ekle</value>
   </data>
+  <data name="Author Added Message" xml:space="preserve">
+    <value>veritabanına eklendi</value>
+  </data>
+  <data name="Author Delete Error" xml:space="preserve">
+    <value>Yazar bu kitaplarla ilişkili olduğu için yazar silinemiyor</value>
+  </data>
+  <data name="Author Deleted Message" xml:space="preserve">
+    <value>silindi</value>
+  </data>
+  <data name="Author Updated Message" xml:space="preserve">
+    <value>güncellenmişti</value>
+  </data>
   <data name="Books" xml:space="preserve">
     <value>Kitaplar</value>
   </data>

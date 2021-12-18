@@ -120,6 +120,18 @@
   <data name="Add new author" xml:space="preserve">
     <value>Add new author</value>
   </data>
+  <data name="Author Added Message" xml:space="preserve">
+    <value>was added in the database</value>
+  </data>
+  <data name="Author Delete Error" xml:space="preserve">
+    <value>Can't delete author because the author is associated with these books.</value>
+  </data>
+  <data name="Author Deleted Message" xml:space="preserve">
+    <value>was deleted</value>
+  </data>
+  <data name="Author Updated Message" xml:space="preserve">
+    <value>was updated</value>
+  </data>
   <data name="Books" xml:space="preserve">
     <value>Books</value>
   </data>
