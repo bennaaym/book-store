@@ -8,6 +8,7 @@ using Book_Store.Areas.Admin.Models;
 using Book_Store.Models.DataLayer;
 using Book_Store.Models.DataLayer.Repositories;
 using Book_Store.Models.DomainModels;
+using Microsoft.AspNetCore.Mvc.Localization;
 
 namespace Book_Store.Areas.Admin.Controllers
 {
@@ -16,8 +17,14 @@ namespace Book_Store.Areas.Admin.Controllers
   [Area("Admin")]
   public class GenreController : Controller
   {
+    private readonly IHtmlLocalizer<GenreController> _localizer;
+
     private Repository<Genre> data { get; set; }
-    public GenreController(BookstoreContext ctx) => data = new Repository<Genre>(ctx);
+    public GenreController(BookstoreContext ctx, IHtmlLocalizer<GenreController> localizer)
+    {
+        data = new Repository<Genre>(ctx);
+        _localizer = localizer;
+    }
 
     public ViewResult Index()
     {
@@ -69,7 +76,7 @@ namespace Book_Store.Areas.Admin.Controllers
         data.Insert(genre);
         data.Save();
         validate.ClearGenre();
-        TempData["message"] = $"{genre.Name} was added in the database";
+        TempData["message"] = $"{genre.Name} {_localizer["Genre Added Message"].Value}";
         return RedirectToAction("Index");
       }
       else
@@ -87,7 +94,7 @@ namespace Book_Store.Areas.Admin.Controllers
       {
         data.Update(genre);
         data.Save();
-        TempData["message"] = $"{genre.Name} was updated";
+        TempData["message"] = $"{genre.Name} {_localizer["Genre Updated Message"].Value}";
         return RedirectToAction("Index");
       }
       else
@@ -110,7 +117,7 @@ namespace Book_Store.Areas.Admin.Controllers
 
       if (genre.Books.Count > 0)
       {
-        TempData["message"] = $"Can't delete genre {genre.Name} because the genre is associated with these books.";
+        TempData["message"] = $"{genre.Name} {_localizer["Genre Delete Error"].Value}";
         return GoToBookSearchResults(id);
       }
       else
@@ -126,7 +133,7 @@ namespace Book_Store.Areas.Admin.Controllers
       // only GenreId in hidden field is posted from form. 
       data.Delete(genre);
       data.Save();
-      TempData["message"] = $"{genre.Name} was deleted";
+      TempData["message"] = $"{genre.Name} {_localizer["Genre Deleted Message"].Value}";
       return RedirectToAction("Index");
     }
   }
