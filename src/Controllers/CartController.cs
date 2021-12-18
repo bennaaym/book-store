@@ -10,6 +10,7 @@ using Book_Store.Models.DomainModels;
 using Book_Store.Models.DTOs;
 using Book_Store.Models.Grid;
 using Book_Store.Models.ViewModels;
+using Microsoft.AspNetCore.Mvc.Localization;
 
 namespace Book_Store.Controllers
 {
@@ -17,9 +18,15 @@ namespace Book_Store.Controllers
   [Authorize]
   public class CartController : Controller
   {
+    private readonly IHtmlLocalizer<CartController> _localizer;
+
     private Repository<Book> data { get; set; }
 
-    public CartController(BookstoreContext ctx) => data = new Repository<Book>(ctx);
+    public CartController(BookstoreContext ctx, IHtmlLocalizer<CartController> localizer)
+    {
+        data = new Repository<Book>(ctx);
+        _localizer = localizer;
+    }
 
     private Cart GetCart()
     {
@@ -59,7 +66,7 @@ namespace Book_Store.Controllers
 
       if (book == null)
       {
-        TempData["message"] = "Unable to add book to cart";
+        TempData["message"] = _localizer["Add Error"];
       }
       else
       {
@@ -78,7 +85,7 @@ namespace Book_Store.Controllers
         cart.Add(item);
         cart.Save();
 
-        TempData["message"] = $"{book.Title} was added to cart";
+        TempData["message"] = $"{book.Title} {_localizer["Added to Cart"].Value}";
       }
 
       // create a new builder object to work with route data in session, then 
@@ -96,7 +103,7 @@ namespace Book_Store.Controllers
       cart.Remove(item);
       cart.Save();
 
-      TempData["message"] = $"{item.Book.Title} was removed from the cart";
+      TempData["message"] = $"{item.Book.Title} {_localizer["Removed from Cart"].Value}";
       return RedirectToAction("Index");
     }
 
@@ -107,7 +114,7 @@ namespace Book_Store.Controllers
       cart.Clear();
       cart.Save();
 
-      TempData["message"] = "Cart has been cleared";
+      TempData["message"] =  _localizer["Cleared Cart"].Value;
       return RedirectToAction("Index");
     }
 
@@ -120,7 +127,7 @@ namespace Book_Store.Controllers
 
       if (item == null)
       {
-        TempData["message"] = "Unable to locate cart item";
+        TempData["message"] = _localizer["Located Error"].Value;
         return RedirectToAction("Index");
       }
       else
@@ -136,7 +143,7 @@ namespace Book_Store.Controllers
       cart.Edit(item);
       cart.Save();
 
-      TempData["message"] = $"{item.Book.Title} has been updated";
+      TempData["message"] = $"{item.Book.Title} {_localizer["Updated Cart"].Value}";
       return RedirectToAction("Index");
     }
 

@@ -6,18 +6,22 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Book_Store.Models.DomainModels;
 using Book_Store.Models.ViewModels;
+using Microsoft.AspNetCore.Mvc.Localization;
 
 namespace Book_Store.Controllers
 {
   public class AccountController : Controller
   {
+    private readonly IHtmlLocalizer<AccountController> _localizer;
+
     private UserManager<User> userManager;
     private SignInManager<User> signInManager;
 
-    public AccountController(UserManager<User> userMngr, SignInManager<User> signInMngr)
+    public AccountController(UserManager<User> userMngr, SignInManager<User> signInMngr, IHtmlLocalizer<AccountController> localizer)
     {
       userManager = userMngr;
       signInManager = signInMngr;
+      _localizer = localizer;
     }
 
     [HttpGet]
@@ -42,7 +46,7 @@ namespace Book_Store.Controllers
       {
         foreach(var error in result.Errors)
         {
-          ModelState.AddModelError("", error.Description);
+          ModelState.AddModelError("","");
         }
       }
 
@@ -89,7 +93,7 @@ namespace Book_Store.Controllers
         }       
       }
 
-      ModelState.AddModelError("", "Invalid User Name or Password");
+      ModelState.AddModelError("", _localizer["Invalid Error"].Value);
       return View(model);
     }
   }
