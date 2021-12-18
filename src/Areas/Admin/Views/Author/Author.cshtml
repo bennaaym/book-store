@@ -1,4 +1,5 @@
 ﻿@model Book_Store.Models.DomainModels.Author
+@inject Microsoft.AspNetCore.Mvc.Localization.IViewLocalizer localizer
 
 @{
   // this view is used for add, edit, and delete.
@@ -8,14 +9,14 @@
   ViewData["Title"] = $" | {action.ToUpper()} Author";
 }
 
-<h1>@action.ToUpper() Author</h1>
+<h1>@localizer[action.ToUpper()] @localizer["Author"]</h1>
 
 <form asp-controller="Author" asp-action="@action" asp-area="Admin" method="post">
   @* Author ID needed by both delete and edit *@
   <input type="hidden" asp-for="AuthorId" />
 
   @* Operation field needed by remote validation *@
-  <input type="hidden" name="Operation" value="@action" />
+  <input type="hidden" name="Operation" value="localizer[@action]" />
 
   @* if deleting, just display full name, but include first and last
     name in hidden fields so can be used to display delete message.
@@ -31,7 +32,7 @@
   else
   {
     <div class="form-group row">
-      <div class="col-sm-2"><label>First Name:</label></div>
+      <div class="col-sm-2"><label>@localizer["First Name"]:</label></div>
       <div class="col-sm-4">
         <input type="text" asp-for="@Model.FirstName" class="form-control" />
       </div>
@@ -40,7 +41,7 @@
       </div>
     </div>
     <div class="form-group row">
-      <div class="col-sm-2"><label>Last Name:</label></div>
+      <div class="col-sm-2"><label>@localizer["Last Name"]:</label></div>
       <div class="col-sm-4">
         <input type="text" asp-for="@Model.LastName" class="form-control" />
       </div>
@@ -52,8 +53,8 @@
 
   <div class="row">
     <div class="col-sm-4 offset-sm-2">
-      <button type="submit" class="btn btn-primary">@action</button>
-      <a asp-controller="Author" asp-action="Index" class="btn btn-primary">Cancel</a>
+      <button type="submit" class="btn btn-primary">@localizer[@action.ToUpper()]</button>
+      <a asp-controller="Author" asp-action="Index" class="btn btn-primary">@localizer["Cancel"]</a>
     </div>
   </div>
 </form>

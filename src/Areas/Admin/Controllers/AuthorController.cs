@@ -8,6 +8,7 @@ using Book_Store.Areas.Admin.Models;
 using Book_Store.Models.DataLayer;
 using Book_Store.Models.DataLayer.Repositories;
 using Book_Store.Models.DomainModels;
+using Microsoft.AspNetCore.Mvc.Localization;
 
 namespace Book_Store.Areas.Admin.Controllers
 {
@@ -16,8 +17,15 @@ namespace Book_Store.Areas.Admin.Controllers
   [Area("Admin")]
   public class AuthorController : Controller
   {
+
+    private readonly IHtmlLocalizer<AuthorController> _localizer;
     private Repository<Author> data { get; set; }
-    public AuthorController(BookstoreContext ctx) => data = new Repository<Author>(ctx);
+    public AuthorController(BookstoreContext ctx, IHtmlLocalizer<AuthorController> localizer)
+    {
+        data = new Repository<Author>(ctx);
+        _localizer = localizer;
+
+    }
 
     public ViewResult Index()
     {
@@ -32,17 +40,15 @@ namespace Book_Store.Areas.Admin.Controllers
     // select (posted from author drop down on Index page). 
     public RedirectToActionResult Select(int id, string operation)
     {
-      switch (operation.ToLower())
-      {
-        case "view books":
-          return RedirectToAction("ViewBooks", new { id });
-        case "edit":
-          return RedirectToAction("Edit", new { id });
-        case "delete":
-          return RedirectToAction("Delete", new { id });
-        default:
-          return RedirectToAction("Index");
-      }
+
+      if(operation.ToLower() == _localizer["Books"].Value.ToLower())
+                return RedirectToAction("ViewBooks", new { id });
+      if(operation.ToLower() == _localizer["Edit"].Value.ToLower())
+                return RedirectToAction("Edit", new { id });
+      if(operation.ToLower() == _localizer["Delete"].Value.ToLower())
+                return RedirectToAction("Delete", new { id });
+      else
+                return RedirectToAction("Index");
     }
 
     private RedirectToActionResult GoToAuthorSearch(Author author)
