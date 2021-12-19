@@ -8,11 +8,11 @@ namespace Book_Store.Models.ViewModels
 {
   public class LoginViewModel
   {
-    [Required(ErrorMessage = "Please enter a user name")]
+    [Required(ErrorMessage = " ")]
     [StringLength(255)]
     public string Username { get; set; }
 
-    [Required(ErrorMessage = "Please enter a password")]
+    [Required(ErrorMessage = " ")]
     public string Password { get; set; }
 
     public string ReturnUrl { get; set; }

@@ -34,7 +34,7 @@ namespace Book_Store.Controllers
     public async Task<IActionResult> Register(RegisterViewModel model)
     {
       var user = new User { UserName = model.Username };
-      var result = await userManager.CreateAsync(user, model.Password);
+      var result = await userManager.CreateAsync(user, (model.Password == null)?"":model.Password);
 
       if (result.Succeeded)
       {
@@ -46,7 +46,7 @@ namespace Book_Store.Controllers
       {
         foreach(var error in result.Errors)
         {
-          ModelState.AddModelError("","");
+          ModelState.AddModelError("",error.Description);
         }
       }
 
