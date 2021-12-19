@@ -46,7 +46,7 @@ namespace Book_Store.Controllers
       {
         foreach(var error in result.Errors)
         {
-          ModelState.AddModelError("",error.Description);
+          ModelState.AddModelError("",@_localizer[error.Description].Value);
         }
       }
 

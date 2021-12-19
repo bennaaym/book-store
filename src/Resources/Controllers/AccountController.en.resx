@@ -120,4 +120,16 @@
   <data name="Invalid Error" xml:space="preserve">
     <value>Invalid User Name or Password</value>
   </data>
+  <data name="Passwords must be at least 8 characters." xml:space="preserve">
+    <value>Passwords must be at least 8 characters</value>
+  </data>
+  <data name="Passwords must have at least one lowercase ('a'-'z')." xml:space="preserve">
+    <value>Passwords must have at least one lowercase ('a'-'z')</value>
+  </data>
+  <data name="Passwords must have at least one uppercase ('A'-'Z')." xml:space="preserve">
+    <value>Passwords must have at least one uppercase ('A'-'Z')</value>
+  </data>
+  <data name="Passwords must use at least 1 different characters." xml:space="preserve">
+    <value>Passwords must use at least 1 different characters</value>
+  </data>
 </root>
