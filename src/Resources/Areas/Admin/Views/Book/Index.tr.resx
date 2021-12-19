@@ -135,6 +135,9 @@
   <data name="Manage Books" xml:space="preserve">
     <value>Kitapları Yönet</value>
   </data>
+  <data name="Search" xml:space="preserve">
+    <value>Ara</value>
+  </data>
   <data name="Search By" xml:space="preserve">
     <value>Arama Ölçütü</value>
   </data>

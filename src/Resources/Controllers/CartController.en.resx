@@ -132,7 +132,7 @@
   <data name="Removed from Cart" xml:space="preserve">
     <value>was removed from the cart</value>
   </data>
-  <data name="Upadated Cart" xml:space="preserve">
+  <data name="Updated Cart" xml:space="preserve">
     <value>has been updated</value>
   </data>
 </root>
