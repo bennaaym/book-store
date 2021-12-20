@@ -9,6 +9,8 @@ using Book_Store.Models.DataLayer;
 using Book_Store.Models.DataLayer.Repositories;
 using Book_Store.Models.DomainModels;
 using Microsoft.AspNetCore.Mvc.Localization;
+using Microsoft.AspNetCore.Localization;
+using Microsoft.AspNetCore.Http;
 
 namespace Book_Store.Areas.Admin.Controllers
 {
@@ -25,7 +27,14 @@ namespace Book_Store.Areas.Admin.Controllers
         data = new BookStoreUnitOfWork(ctx);
         _localizer = localizer;
     }
+    public IActionResult CultureManagement(string culture, string returnUrl)
+    {
+        Response.Cookies.Append(CookieRequestCultureProvider.DefaultCookieName,
+            CookieRequestCultureProvider.MakeCookieValue(new RequestCulture(culture)),
+            new CookieOptions { Expires = DateTimeOffset.Now.AddDays(30) });
 
+        return LocalRedirect(returnUrl);
+    }
     public IActionResult Index()
     {
       //clear all previous searches

@@ -1,6 +1,7 @@
 ﻿@inject Microsoft.AspNetCore.Mvc.Localization.IViewLocalizer localizer
 @inject Microsoft.Extensions.Options.IOptions<Microsoft.AspNetCore.Builder.RequestLocalizationOptions> locOptions ;
 
+
 @{ 
     var culture = Context.Features.Get<Microsoft.AspNetCore.Localization.IRequestCultureFeature>();
     var cultureList = locOptions.Value.SupportedCultures.Select(x => new SelectListItem { Value = x.Name, Text = localizer.GetString(x.Name) }).ToList();
@@ -8,7 +9,7 @@
 }
 
 <div class="my-2">
-    <form asp-route-returnUrl="@returnUrl" asp-controller="Home" asp-action="CultureManagement" method="post">
+    <form asp-route-returnUrl="@returnUrl" asp-controller="Book" asp-action="CultureManagement" method="post">
         <select class="select2-purple" style="border:none" name="culture" onchange="this.form.submit()" asp-for="@culture.RequestCulture.UICulture.Name" asp-items="cultureList" > </select>
     </form>
 </div>

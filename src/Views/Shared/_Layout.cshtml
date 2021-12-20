@@ -1,4 +1,6 @@
 ﻿@inject Microsoft.AspNetCore.Mvc.Localization.IViewLocalizer localizer
+@using Microsoft.AspNetCore.Identity
+@inject SignInManager<Book_Store.Models.DomainModels.User> signInManager
 
 @{ 
   // get cart from session
@@ -53,8 +55,7 @@
             </a>
           </li>
 
-          @using Microsoft.AspNetCore.Identity
-          @inject SignInManager<Book_Store.Models.DomainModels.User> signInManager
+          
           @if (signInManager.IsSignedIn(User))
           {
             // signed-in user - Log Out button and username
@@ -80,13 +81,15 @@
             </li>
           }
 
+          @if(signInManager.IsSignedIn(User) && @User.IsInRole("Admin"))
+          {
           <li class="nav-item @Book_Store.Models.ViewModels.Nav.Active("Admin", current)">
             <a class="nav-link" asp-area="Admin" asp-controller="Book" asp-action="Index">
               <span class="fas fa-cog"></span>&nbsp;@localizer["Admin"]
             </a>
           </li>
-
-          <li class="nav-item">
+          }
+          <li class="nav-item ml-2">
               <partial name="_Culture" />
           </li>
         </ul>

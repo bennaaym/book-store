@@ -10,6 +10,8 @@ using Book_Store.Models.DTOs;
 using Book_Store.Models.ExtensionMethods;
 using Book_Store.Models.Grid;
 using Book_Store.Models.ViewModels;
+using Microsoft.AspNetCore.Localization;
+using Microsoft.AspNetCore.Http;
 
 namespace Book_Store.Controllers
 {
@@ -18,6 +20,15 @@ namespace Book_Store.Controllers
     private BookStoreUnitOfWork data { get; set; }
     public BookController(BookstoreContext ctx) => data = new BookStoreUnitOfWork(ctx);
 
+    [HttpPost]
+    public IActionResult CultureManagement(string culture, string returnUrl)
+    {
+        Response.Cookies.Append(CookieRequestCultureProvider.DefaultCookieName,
+            CookieRequestCultureProvider.MakeCookieValue(new RequestCulture(culture)),
+            new CookieOptions { Expires = DateTimeOffset.Now.AddDays(30) });
+
+        return LocalRedirect(returnUrl);
+    }
     public IActionResult Index() => RedirectToAction("List");
 
     // dto has properties for the paging, sorting, and filtering route segments defined in the Startup.cs file

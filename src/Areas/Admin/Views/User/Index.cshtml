@@ -54,32 +54,3 @@
     }
   </tbody>
 </table>
-
-<h1 class="mb-2">@localizer["Manage Roles"]</h1>
-@if (Model.Roles.Count() == 0)
-{
-  <form method="post" asp-controller="User" asp-action="CreateAdminRole">
-    <button type="submit" class="btn btn-primary">@localizer["Create Admin Role"]</button>
-  </form>
-}
-else
-{
-  <table class="table table-bordered table-striped table-sm">
-    <thead>
-      <tr><th>Role</th><th></th></tr>
-    </thead>
-    <tbody>
-      @foreach(var role in Model.Roles)
-      {
-        <tr>
-          <td>@role.Name</td>
-          <td>
-            <form method="post" asp-controller="User" asp-action="DeleteRole" asp-route-id="@role.Id">
-              <button type="submit" class="btn btn-primary">Delete Role</button>
-            </form>
-          </td>
-        </tr>
-      }
-    </tbody>
-  </table>
-}
