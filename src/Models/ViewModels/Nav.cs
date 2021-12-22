@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
+﻿
 namespace Book_Store.Models.ViewModels
 {
   // It's used in the Layout and AdminLayout views to mark a nav link as active.

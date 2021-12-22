@@ -1,9 +1,7 @@
 ﻿using Book_Store.Models.DomainModels;
 using Book_Store.Models.Grid;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+
 
 namespace Book_Store.Models.ViewModels
 {

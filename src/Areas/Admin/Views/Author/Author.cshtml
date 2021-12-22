@@ -9,7 +9,7 @@
   ViewData["Title"] = $" | {action.ToUpper()} Author";
 }
 
-<h1>@localizer[action.ToUpper()] @localizer["Author"]</h1>
+<h1>@localizer[action] @localizer["Author"]</h1>
 
 <form asp-controller="Author" asp-action="@action" asp-area="Admin" method="post">
   @* Author ID needed by both delete and edit *@

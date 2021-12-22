@@ -132,8 +132,14 @@
   <data name="Delete" xml:space="preserve">
     <value>Delete</value>
   </data>
+  <data name="Delete Book" xml:space="preserve">
+    <value>Delete Book</value>
+  </data>
   <data name="Edit" xml:space="preserve">
     <value>Edit</value>
+  </data>
+  <data name="Edit Book" xml:space="preserve">
+    <value>Edit Book</value>
   </data>
   <data name="Genre" xml:space="preserve">
     <value>Genre</value>

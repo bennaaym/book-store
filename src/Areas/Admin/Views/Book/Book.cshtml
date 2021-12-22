@@ -9,7 +9,7 @@
   ViewData["Title"] = $" | {action.ToUpper()} Book";
 }
 
-<h1>@localizer["Add Book"]</h1>
+<h1>@localizer[action + " Book"]</h1>
 
 <form asp-controller="Book" asp-action="@action" asp-area="Admin" method="post">
   <input type="hidden" asp-for="Book.BookId" />

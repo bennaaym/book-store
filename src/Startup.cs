@@ -1,15 +1,10 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Session;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Hosting;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Book_Store.Models.DataLayer;
 using Book_Store.Models.DomainModels;
 using Microsoft.AspNetCore.Mvc.Razor;
@@ -60,7 +55,7 @@ namespace Book_Store
                 options.Password.RequiredLength = 8;
                 options.Password.RequireNonAlphanumeric = false;
                 options.Password.RequireDigit = false;
-               
+
             }).AddEntityFrameworkStores<BookstoreContext>().AddDefaultTokenProviders();
         }
 

@@ -9,7 +9,7 @@
   ViewData["Title"] = $" | {action.ToUpper()} Genre";
 }
 
-<h1>@(localizer[action.ToUpper()]) @localizer["Genre"]</h1>
+<h1>@(localizer[action]) @localizer["Genre"]</h1>
 
 <form asp-controller="Genre" asp-action="@action" asp-area="Admin" method="post">
   <div class="form-group row">
